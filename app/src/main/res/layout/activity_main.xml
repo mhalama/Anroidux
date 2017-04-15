@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cz.goedel.androidux.MainActivity">
+
+    <TextView
+        android:id="@+id/TotalValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="undefined"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintVertical_bias="0.502"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/IncrementButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        tools:layout_editor_absoluteY="339dp"
+        app:layout_constraintLeft_toRightOf="@+id/IncrementValue"
+        android:layout_marginLeft="8dp" />
+
+    <EditText
+        android:id="@+id/IncrementValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="2"
+        tools:layout_editor_absoluteX="15dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/TotalValue" />
+
+    <Button
+        android:id="@+id/LoadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load"
+        tools:layout_editor_absoluteX="138dp"
+        tools:layout_editor_absoluteY="339dp" />
+
+</android.support.constraint.ConstraintLayout>
