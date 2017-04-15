@@ -5,6 +5,10 @@ import cz.goedel.androidux.actions.DataLoadedAction;
 import cz.goedel.androidux.actions.LoadProcessAction;
 import io.reactivex.disposables.Disposable;
 
+/**
+ * Sample effect which dispatches background load process action when state of
+ * application changes in a way that number % 10 == 0.
+ */
 public class Effect10 implements Effect {
 
     private Store store;
@@ -18,7 +22,7 @@ public class Effect10 implements Effect {
     @Override
     public void register() {
         subscription = store.getState()
-                .filter(s -> s.getNumber() == 10)
+                .filter(s -> s.getNumber() % 10 == 0)
                 .subscribe(s -> {
                     store.dispatch(new DataLoadedAction(222));
                 });

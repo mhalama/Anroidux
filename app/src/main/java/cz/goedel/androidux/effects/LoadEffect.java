@@ -1,10 +1,16 @@
 package cz.goedel.androidux.effects;
 
+import java.util.concurrent.TimeUnit;
+
 import cz.goedel.androidux.Store;
 import cz.goedel.androidux.actions.DataLoadedAction;
 import cz.goedel.androidux.actions.LoadProcessAction;
 import io.reactivex.disposables.Disposable;
 
+/**
+ * Simulates background service process which can send some data back to application
+ * asynchronously.
+ */
 public class LoadEffect implements Effect {
 
     private Store store;
@@ -19,6 +25,7 @@ public class LoadEffect implements Effect {
     public void register() {
         subscription = store.getAction()
                 .filter(a -> (a instanceof LoadProcessAction))
+                .delay(3, TimeUnit.SECONDS)
                 .subscribe(a -> {
                     store.dispatch(new DataLoadedAction(111));
                 });

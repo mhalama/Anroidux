@@ -39,4 +39,11 @@ public class Store {
         return this.action$;
     }
 
+    public Observable<Boolean> isLoading() {
+        return getState()
+                .map(s -> s.isLoading())
+                .distinctUntilChanged();
+
+    }
+
 }

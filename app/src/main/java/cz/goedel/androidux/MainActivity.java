@@ -15,6 +15,7 @@ import cz.goedel.androidux.actions.IncrementAction;
 import cz.goedel.androidux.actions.LoadProcessAction;
 import cz.goedel.androidux.effects.ComposedEffect;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +40,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.IncrementValue)
     TextView incrementValue = null;
 
-    private Disposable subscription;
+    @BindView(R.id.Message)
+    TextView message = null;
+
+    private CompositeDisposable subscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +71,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        subscription = store.getState()
+        subscription = new CompositeDisposable();
+
+        Disposable dsp = store.getState()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     totalValue.setText(s.getNumber() + "");
                 });
+
+        subscription.add(dsp);
+
+        dsp = store.isLoading()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(loading -> {
+                    message.setText(loading ? "loading": "ready");
+                });
+
+        subscription.add(dsp);
 
         composedEffect.register();
     }

@@ -2,6 +2,9 @@ package cz.goedel.androidux.effects;
 
 import javax.inject.Inject;
 
+/**
+ * Used for effect composition
+ */
 public class ComposedEffect implements Effect {
 
     private Effect[] effects;
