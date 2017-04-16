@@ -1,9 +1,9 @@
 package cz.goedel.androidux.effects;
 
-import javax.inject.Inject;
-
 /**
- * Used for effect composition
+ * Used for effect composition.
+ *
+ * TODO: This should be generated somehow from annotations.
  */
 public class ComposedEffect implements Effect {
 

@@ -1,7 +1,5 @@
 package cz.goedel.androidux;
 
-import android.util.Log;
-
 import cz.goedel.androidux.actions.Action;
 import cz.goedel.androidux.reducers.Reducer;
 import cz.goedel.androidux.states.AppState;
@@ -15,7 +13,7 @@ public class Store {
 
     private Observable<AppState> state$;
 
-    public Store(AppState initialState, Reducer<AppState> reducer) {
+    public Store(AppState initialState, Reducer<AppState,Action> reducer) {
         this.action$ = BehaviorSubject.create();
         this.state$ = BehaviorSubject.createDefault(initialState);
 
@@ -41,9 +39,14 @@ public class Store {
 
     public Observable<Boolean> isLoading() {
         return getState()
-                .map(s -> s.isLoading())
+                .map(s -> s.getLoader().isLoading())
                 .distinctUntilChanged();
+    }
 
+    public Observable<Integer> getCounter() {
+        return getState()
+                .map(s -> s.getCounter().getNumber())
+                .distinctUntilChanged();
     }
 
 }

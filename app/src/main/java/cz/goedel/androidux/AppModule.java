@@ -9,6 +9,8 @@ import cz.goedel.androidux.effects.Effect;
 import cz.goedel.androidux.effects.Effect10;
 import cz.goedel.androidux.effects.LoadEffect;
 import cz.goedel.androidux.reducers.AppReducer;
+import cz.goedel.androidux.reducers.CounterReducer;
+import cz.goedel.androidux.reducers.LoaderReducer;
 import cz.goedel.androidux.states.AppState;
 import dagger.Module;
 import dagger.Provides;
@@ -54,7 +56,25 @@ public class AppModule {
 
     @Provides
     @Singleton
-    Store provideStore() {
-        return new Store(new AppState(0), new AppReducer());
+    CounterReducer provideCounterReducer() {
+        return new CounterReducer();
+    }
+
+    @Provides
+    @Singleton
+    LoaderReducer provideLoaderReducer() {
+        return new LoaderReducer();
+    }
+
+    @Provides
+    @Singleton
+    AppReducer provideAppReducer(CounterReducer cr, LoaderReducer lr) {
+        return new AppReducer(cr, lr);
+    }
+
+    @Provides
+    @Singleton
+    Store provideStore(AppReducer appReducer) {
+        return new Store(new AppState(), appReducer);
     }
 }

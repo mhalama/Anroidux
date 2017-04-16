@@ -2,7 +2,6 @@ package cz.goedel.androidux.effects;
 
 import cz.goedel.androidux.Store;
 import cz.goedel.androidux.actions.DataLoadedAction;
-import cz.goedel.androidux.actions.LoadProcessAction;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -21,8 +20,8 @@ public class Effect10 implements Effect {
 
     @Override
     public void register() {
-        subscription = store.getState()
-                .filter(s -> s.getNumber() % 10 == 0)
+        subscription = store.getCounter()
+                .filter(s -> s % 10 == 0)
                 .subscribe(s -> {
                     store.dispatch(new DataLoadedAction(222));
                 });

@@ -73,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
         subscription = new CompositeDisposable();
 
-        Disposable dsp = store.getState()
+        Disposable dsp = store.getCounter()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
-                    totalValue.setText(s.getNumber() + "");
+                    totalValue.setText(s + "");
                 });
 
         subscription.add(dsp);

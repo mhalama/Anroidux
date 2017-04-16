@@ -1,29 +1,30 @@
 package cz.goedel.androidux.reducers;
 
-import cz.goedel.androidux.actions.DataLoadedAction;
-import cz.goedel.androidux.actions.LoadProcessAction;
-import cz.goedel.androidux.states.AppState;
 import cz.goedel.androidux.actions.Action;
-import cz.goedel.androidux.actions.IncrementAction;
+import cz.goedel.androidux.states.AppState;
 
-public class AppReducer implements Reducer<AppState> {
+/**
+ * Compose all application reducers.
+ *
+ * TODO: This should be generated somehow from annotations.
+ */
+public class AppReducer implements Reducer<AppState,Action> {
+
+    CounterReducer counter;
+    LoaderReducer loader;
+
+    public AppReducer(CounterReducer cr, LoaderReducer lr) {
+        this.counter = cr;
+        this.loader = lr;
+    }
 
     @Override
     public AppState reduce(AppState s, Action a) {
-        if (a instanceof IncrementAction) {
-            return new AppState(s.getNumber() + ((IncrementAction) a).getIncr());
-        }
+        AppState nas = new AppState();
 
-        if (a instanceof LoadProcessAction) {
-            return new AppState(s.getNumber(), true);
-        }
+        nas.setCounter(counter.reduce(s.getCounter(),a));
+        nas.setLoader(loader.reduce(s.getLoader(),a));
 
-        if (a instanceof DataLoadedAction) {
-            DataLoadedAction dla = (DataLoadedAction) a;
-
-            return new AppState(((DataLoadedAction) a).getNumber(), false);
-        }
-
-        return s;
+        return nas;
     }
 }
