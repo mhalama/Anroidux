@@ -1,5 +1,7 @@
 package cz.goedel.androidux.states;
 
+import android.os.Bundle;
+
 import lombok.Data;
 
 /**
@@ -18,4 +20,11 @@ public class CounterState {
         setNumber(number);
     }
 
+    public CounterState(Bundle state) {
+        number = state.getInt("COUNTER_NUMBER");
+    }
+
+    public void onSaveInstanceState(Bundle state) {
+        state.putInt("COUNTER_NUMBER", number);
+    }
 }

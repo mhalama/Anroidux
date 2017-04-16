@@ -9,8 +9,6 @@ import cz.goedel.androidux.effects.Effect;
 import cz.goedel.androidux.effects.Effect10;
 import cz.goedel.androidux.effects.LoadEffect;
 import cz.goedel.androidux.reducers.AppReducer;
-import cz.goedel.androidux.reducers.CounterReducer;
-import cz.goedel.androidux.reducers.LoaderReducer;
 import cz.goedel.androidux.states.AppState;
 import dagger.Module;
 import dagger.Provides;
@@ -52,24 +50,6 @@ public class AppModule {
     @Singleton
     ComposedEffect provideEffectManager(LoadEffect loadEffect, Effect10 effect10) {
         return new ComposedEffect(new Effect[] {loadEffect, effect10});
-    }
-
-    @Provides
-    @Singleton
-    CounterReducer provideCounterReducer() {
-        return new CounterReducer();
-    }
-
-    @Provides
-    @Singleton
-    LoaderReducer provideLoaderReducer() {
-        return new LoaderReducer();
-    }
-
-    @Provides
-    @Singleton
-    AppReducer provideAppReducer(CounterReducer cr, LoaderReducer lr) {
-        return new AppReducer(cr, lr);
     }
 
     @Provides

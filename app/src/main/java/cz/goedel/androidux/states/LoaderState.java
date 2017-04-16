@@ -1,5 +1,7 @@
 package cz.goedel.androidux.states;
 
+import android.os.Bundle;
+
 import lombok.Data;
 
 /**
@@ -15,5 +17,13 @@ public class LoaderState {
 
     public LoaderState(boolean loading) {
         setLoading(loading);
+    }
+
+    public LoaderState(Bundle state) {
+        loading = state.getBoolean("LOADER_LOADING");
+    }
+
+    public void onSaveInstanceState(Bundle state) {
+        state.putBoolean("LOADER_LOADING", loading);
     }
 }
